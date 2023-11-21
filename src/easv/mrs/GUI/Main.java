@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 public class Main extends Application {
 
     @Override
@@ -14,9 +16,7 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("/View/MovieView.fxml"));
-
-
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("My Movie Database");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

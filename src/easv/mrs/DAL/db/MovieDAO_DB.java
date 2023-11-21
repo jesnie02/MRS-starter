@@ -77,13 +77,45 @@ public class MovieDAO_DB implements IMovieDataAccess {
     }
 
     public void updateMovie(Movie movie) throws Exception {
+        String sql = "UPDATE MovieDB.Movie SET Title = ?, Year = ? WHERE Id = ?;";
+
+        try (Connection conn = databaseConnector.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Bind parameters
+            stmt.setString(1, movie.getTitle());
+            stmt.setInt(2, movie.getYear());
+            stmt.setInt(3, movie.getId());
+
+            // Execute the update
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not update movie", ex);
+        }
+
         //TODO Do this
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     public void deleteMovie(Movie movie) throws Exception {
+        String sql = "DELETE FROM MovieDB.Movie WHERE Id = ?;";
+
+        try (Connection conn = databaseConnector.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Bind the ID parameter
+            stmt.setInt(1, movie.getId());
+
+            // Execute the delete operation
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not delete movie", ex);
+        }
+
         //TODO Do this
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     public List<Movie> searchMovies(String query) throws Exception {

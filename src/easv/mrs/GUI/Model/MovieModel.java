@@ -35,4 +35,15 @@ public class MovieModel {
         Movie m = movieManager.createNewMovie(newMovie);
         moviesToBeViewed.add(m);
     }
+
+    public void updateMovie(Movie movie) throws Exception {
+        movieManager.updateMovie(movie);
+        // Update the local observable list to reflect changes
+        moviesToBeViewed.set(moviesToBeViewed.indexOf(movie), movie);
+    }
+
+    public void deleteMovie(Movie movie) throws Exception {
+        movieManager.deleteMovie(movie);
+        moviesToBeViewed.remove(movie);
+    }
 }
