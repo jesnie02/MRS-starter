@@ -36,9 +36,9 @@ public class MovieModel {
         moviesToBeViewed.add(m);
     }
 
+
     public void updateMovie(Movie movie) throws Exception {
         movieManager.updateMovie(movie);
-        // Update the local observable list to reflect changes
         moviesToBeViewed.set(moviesToBeViewed.indexOf(movie), movie);
     }
 

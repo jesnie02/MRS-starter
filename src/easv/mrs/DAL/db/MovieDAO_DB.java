@@ -18,9 +18,10 @@ public class MovieDAO_DB implements IMovieDataAccess {
 
     public List<Movie> getAllMovies() throws Exception {
         ArrayList<Movie> allMovies = new ArrayList<>();
-        try(Connection connection = databaseConnector.getConnection()) {
+        try(Connection connection = databaseConnector.getConnection();
+            Statement statement = connection.createStatement()) {
             String sql = "SELECT * FROM MovieDB.Movie;";
-            Statement statement = connection.createStatement();
+
 
             if (statement.execute(sql)){
 
@@ -43,9 +44,10 @@ public class MovieDAO_DB implements IMovieDataAccess {
     public Movie createMovie(Movie movie) throws Exception {
         String sql = "INSERT INTO MovieDB.Movie (Title,Year) VALUES (?,?);";
 
-        try (Connection conn = databaseConnector.getConnection()) {
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
 
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
 
             // Bind parameters
             stmt.setString(1,movie.getTitle());
@@ -104,10 +106,10 @@ public class MovieDAO_DB implements IMovieDataAccess {
         try (Connection conn = databaseConnector.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            // Bind the ID parameter
+            // Bind ID parameter
             stmt.setInt(1, movie.getId());
 
-            // Execute the delete operation
+            // Execute delete operation
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

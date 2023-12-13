@@ -16,6 +16,7 @@ public class Movie {
         return id;
     }
 
+
     public String getTitle() {
         return title;
     }
